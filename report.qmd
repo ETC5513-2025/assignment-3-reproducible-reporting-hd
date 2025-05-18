@@ -19,9 +19,12 @@ knitr::opts_chunk$set(
 library(dplyr)
 library(readr)
 library(tidyr)
+library(knitr)
+library(kableExtra)
 ```
 
 # Introduction
+
 Maisha's part
 
 # Methodology
@@ -30,23 +33,53 @@ Maisha's part
 # Data Preparation
 original_df <- read_csv("Data/electric-car-sales-share/electric-car-sales-share.csv")
 
-countries <- selected_countries <- c("China", "India", "Japan", "Austria", "Finland", "Norway")
+countries <- selected_countries <- c("China", "India", 
+                                     "Japan", "Austria", 
+                                     "Finland", "Norway")
 
-cleaned_data <- original_df %>%
-  rename(
-    country = Entity,
-    code = Code,
-    year = Year,
-    electric_car_share = `Share of new cars that are electric`
-  ) %>%
-  filter(year >= 2013, year <= 2023, country %in% countries) %>%
+cleaned_df <- original_df %>%
+  rename(Country = Entity,
+         Electric_Car_Share = `Share of new cars that are electric`) %>%
+  filter(Year >= 2013, Year <= 2023, 
+         Country %in% countries) %>%
   drop_na()
 
 ```
 
+The data has `r ncol(cleaned_df)` observations and `r nrow(cleaned_df)` variables. There are three numeric variables (Year and Electric_car_share) and two character variable (Country and Code). The description of each variable is provided in @tbl-DataDict.
+
+```{r}
+# Preparation for data descriptions table
+data_description <- data.frame(
+  Variable = c("Country", "Code", "Year", "Electric_Car_Share"),
+  Description = c(
+    "Name of the country where the data was collected",
+    "ISO 3-letter country code",
+    "Year of observation (from 2013 to 2023)",
+    "Percentage of electric vehicles in new car sales"
+  ))
+```
+
+```{r}
+#| label: tbl-DataDict
+#| tbl-cap: "Data dictionary for electric car sales share dataset"
+
+data_description %>%
+  kable(escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped",
+                                      "hover",
+                                      "condensed",
+                                      "responsive",
+                                      "bordered"),
+                full_width = FALSE,
+                position = "center")
+
+```
 
 # Disucussion and Visualisations
+
 Yao's part
 
 # Conclusion and Recommendation
+
 Xinly's part
