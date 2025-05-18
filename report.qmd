@@ -29,6 +29,19 @@ Maisha's part
 
 # Methodology
 
+A reproducible workflow was followed using RStudio, Git, and GitHub to manage version control and collaboration. This report applies the IMPACT Cycle framework to explore trends in electric car adoption across selected Asian and European countries. As shown in \@fig-impact, the methodology follows a structured sequence, from identifying the research question, preparing data, performing analysis, communicating results, and tracking outcomes. The IMPACT Cycle was used because it provides a structured, repeatable approach for guiding data-driven projects from problem identification through to communication and measurable impact \@richardson2023impact.
+
+```{r}
+#| label: fig-impact
+#| fig-cap: "Impact Cycle"
+#| fig-align: center
+#| fig-pos: "H"
+
+knitr::include_graphics("Images/impact_fig.png")
+```
+
+In the Identify phase, the research question focused on how electric car shares evolved between 2013 and 2023 across selected countries, and what regional differences can be observed.
+
 ```{r}
 # Data Preparation
 original_df <- read_csv("Data/electric-car-sales-share/electric-car-sales-share.csv")
@@ -46,7 +59,9 @@ cleaned_df <- original_df %>%
 
 ```
 
-The data has `r ncol(cleaned_df)` observations and `r nrow(cleaned_df)` variables. There are three numeric variables (Year and Electric_car_share) and two character variable (Country and Code). The description of each variable is provided in @tbl-DataDict.
+During the Master the Data phase, data was retrieved from [Our World in Data](https://ourworldindata.org/grapher/electric-car-sales-share), based on statistics from the International Energy Agency. Six countries were selected from global dataset, including China, India, and Japan in Asia, and Austria, Finland, and Norway in Europe. Furthermore, The 10-year timeframe (2013-2023) reflects a period of rapid growth and visibility in the electric mobility space.
+
+The final dataset has `r ncol(cleaned_df)` observations and `r nrow(cleaned_df)` variables. It contains two numeric variables (Year and Electric_car_share) and two character variable (Country and Code). The description of each variable is provided in @tbl-DataDict.
 
 ```{r}
 # Preparation for data descriptions table
@@ -75,6 +90,8 @@ data_description %>%
                 position = "center")
 
 ```
+
+The analysis then produced visualisations that highlight electric car adoption trends across countries, supporting the Address and Refine Results phase by making insights clear and actionable. In the Communicate phase, the findings were interpreted, while the Track Outcomes phase offers recommendations to support effective electric vehicle adoption.
 
 # Disucussion and Visualisations
 
