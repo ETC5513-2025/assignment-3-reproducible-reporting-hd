@@ -27,3 +27,14 @@ This report analyzes the differences in electric vehicle (EV) adoption between s
 ## Introduction
 
 The global transition toward electric vehicles (EVs) has gained momentum over the past decade, yet significant differences in adoption rates exist between regions. This study investigates how EV sales shares have evolved in selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries between 2013 and 2023. By analyzing public data from Our World in Data and applying the IMPACT Cycle methodology, we aim to uncover the underlying factors behind these regional disparities. Initial observations suggest that European nations have experienced a rapid increase in EV adoption, whereas most Asian countries have progressed more gradually. These trends raise important questions about the role of government policies, infrastructure, and public awareness in accelerating EV uptake. China, however, emerges as an exception within Asia, showing growth patterns similar to European counterparts. The analysis focuses on identifying such key differences and understanding their root causes. This comparison provides insight into how policy environments influence consumer behavior and technological adoption. Through this research, we aim to offer actionable recommendations for countries lagging in EV adoption. The goal is to inform strategies that support a more balanced and equitable global shift toward electric mobility.
+
+
+##Discussion
+The analysis reveals significant regional disparities in electric vehicle (EV) adoption between selected Asian and European countries from 2013 to 2023. European nations such as Norway and Finland achieved high EV market shares due to strong government incentives, high taxes on petrol cars, and investment in EV infrastructure. In contrast, most Asian countries, with the exception of China, demonstrated slower growth, potentially due to weaker policy support and limited public infrastructure. China’s rapid increase suggests that proactive government measures can overcome structural limitations.
+
+##Conclusion
+These findings underscore the critical role of government policy and public investment in accelerating EV adoption. While cultural and economic contexts differ, policy-driven strategies consistently yield positive outcomes in terms of EV market share.
+
+##Recommendations
+To encourage broader adoption, countries with low EV uptake—such as India and Japan—should consider adopting policies that have proven effective in Europe and China. These include offering purchase incentives, investing in charging infrastructure, and launching public awareness campaigns. Additionally, setting clear national targets for EV adoption can help align market expectations and guide industry development. A coordinated, multi-pronged approach will be essential in fostering a more balanced and equitable global transition to electric mobility.
+
