@@ -2,7 +2,8 @@
 title: "EC"
 author: "YL"
 format: html
-editor: visual
+bibliography: references.bib
+csl: apa.csl
 ---
 
 ```{r}
