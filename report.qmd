@@ -1,6 +1,6 @@
 ---
 title: "Differences of electricity car usage between Asia and Europe"
-author: "YL"
+author: "Yao Lu"
 format:
   pdf:
     toc: True
@@ -11,7 +11,7 @@ bibliography: references.bib
 csl: apa.csl
 ---
 
-ETC5513 Assignment 3
+
 
 Group Members:
 
@@ -35,6 +35,7 @@ library(dplyr)
 library(readr)
 library(tidyr)
 library(knitr)
+library(ggplot2)
 library(kableExtra)
 ```
 
@@ -117,18 +118,65 @@ The analysis then produced visualisations that highlight EV adoption trends acro
 
 # Disucussion and Visualisations
 
-Yao's part
+## Results
+
+```{r}
+# Separate countgries into two regions
+cleaned_df <- cleaned_df %>%
+  mutate(Region = if_else(Country %in% c("Norway", "Finland", "Austria"), 
+                          "Europe", "Asia"))
+
+```
+
+@fig-ev-faceted shows the trend of electric car sales from 2013 to 2023 across six countries. Norway had the highest share, reaching over 80% by 2023, followed by Finland and Austria, which also showed steady growth to about 30% and 20%. In Asia, China started with a low share but grew quickly after 2016, reaching 35% in 2023. However, Japan and India remained low throughout the period, both staying under 2%. This trend shows that European countries had stronger policies and support for electric cars, while some Asian countries moved more slowly.
+
+```{r}
+#| label: fig-ev-faceted
+#| fig-cap: "EV sales share trends in selected Asian and European countries from 2013 to 2023."
+#| echo: false
+#| warning: false
+
+ggplot(cleaned_df, aes(x = Year, y = Electric_Car_Share, color = Country)) +
+  geom_line(size = 1.2) +
+  scale_x_continuous(breaks = 2013:2023) +
+  facet_wrap(~Region) +
+  labs(title = "Electric Vehicle Sales Share (2013–2023)",
+       x = "Year",
+       y = "EV Share (%)") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+```
+
+```{r}
+# Calculate the average EV share for each country from 2013 to 2023
+avg_ev_df <- cleaned_df %>%
+  group_by(Country) %>%
+  summarise(Average_EV_Share = mean(Electric_Car_Share, na.rm = TRUE))
+
+```
+
+@fig-ev-average-bar shows the average share of electric vehicle (EV) sales in each country from 2013 to 2023. Norway had the highest average, exceeding 50%, due to strong government incentives and early EV adoption. Finland and Austria also showed solid performance, averaging around 20–30%. In contrast, China had a lower average but showed rapid growth in recent years. Japan and India recorded the lowest averages, both below 2%, indicating slower adoption. Overall, European countries performed better in EV adoption compared to most Asian countries, with China as a notable exception.
+
+```{r}
+#| label: fig-ev-average-bar
+#| fig-cap: "Average EV sales share in each country from 2013 to 2023."
+#| echo: false
+#| fig-align: center
+
+ggplot(avg_ev_df, aes(x = reorder(Country, -Average_EV_Share), 
+                      y = Average_EV_Share, fill = Country)) +
+  geom_col(width = 0.6) +
+  labs(title = "Average Electric Vehicle Share by Country",
+       x = "Country",
+       y = "Average EV Share (%)") +
+  theme_minimal()
+```
 
 # Conclusion and Recommendation
 
 Xinly's part
 
 # Reference List
-The global transition toward electric vehicles (EVs) has gained momentum over the past decade, yet significant differences in adoption rates exist between regions. This study investigates how EV sales shares have evolved in selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries between 2013 and 2023. By analyzing public data from Our World in Data and applying the IMPACT Cycle methodology, we aim to uncover the underlying factors behind these regional disparities. Initial observations suggest that European nations have experienced a rapid increase in EV adoption, whereas most Asian countries have progressed more gradually. These trends raise important questions about the role of government policies, infrastructure, and public awareness in accelerating EV uptake. China, however, emerges as an exception within Asia, showing growth patterns similar to European counterparts. The analysis focuses on identifying such key differences and understanding their root causes. This comparison provides insight into how policy environments influence consumer behavior and technological adoption. Through this research, we aim to offer actionable recommendations for countries lagging in EV adoption. The goal is to inform strategies that support a more balanced and equitable global shift toward electric mobility.
-
-## Executive Summary
-This report analyzes the differences in electric vehicle (EV) adoption between selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries from 2013 to 2023. Using data from Our World in Data and the IMPACT Cycle framework, we found that European countries experienced a sharp rise in EV market share, driven by strong policy support such as high taxes on petrol cars and generous EV incentives. In contrast, Asian countries showed slower growth, largely due to weaker government support—except for China, which demonstrated rapid adoption. These findings highlight the critical role of national policy in shaping the trajectory of EV usage.
-
-## Introduction
-
-The global transition toward electric vehicles (EVs) has gained momentum over the past decade, yet significant differences in adoption rates exist between regions. This study investigates how EV sales shares have evolved in selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries between 2013 and 2023. By analyzing public data from Our World in Data and applying the IMPACT Cycle methodology, we aim to uncover the underlying factors behind these regional disparities. Initial observations suggest that European nations have experienced a rapid increase in EV adoption, whereas most Asian countries have progressed more gradually. These trends raise important questions about the role of government policies, infrastructure, and public awareness in accelerating EV uptake. China, however, emerges as an exception within Asia, showing growth patterns similar to European counterparts. The analysis focuses on identifying such key differences and understanding their root causes. This comparison provides insight into how policy environments influence consumer behavior and technological adoption. Through this research, we aim to offer actionable recommendations for countries lagging in EV adoption. The goal is to inform strategies that support a more balanced and equitable global shift toward electric mobility.
