@@ -5,23 +5,81 @@ format: html
 editor: visual
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
 ```{r}
-1 + 1
+library(tidyverse)
+library(dplyr)
+library(readr)
+library(ggplot2)
+
+
+original_df <- read_csv("Data/electric-car-sales-share/electric-car-sales-share.csv")
+
+countries <- selected_countries <- c("China", "India", 
+                                     "Japan", "Austria", 
+                                     "Finland", "Norway")
+
+cleaned_df <- original_df %>%
+  rename(Country = Entity,
+         Electric_Car_Share = `Share of new cars that are electric`) %>%
+  filter(Year >= 2013, Year <= 2023, 
+         Country %in% countries) %>%
+  drop_na()
+
 ```
 
-You can add options to executable code like this
+## Results
 
 ```{r}
+# Separate countgries into two regions
+cleaned_df <- cleaned_df %>%
+  mutate(Region = if_else(Country %in% c("Norway", "Finland", "Austria"), 
+                          "Europe", "Asia"))
+
+```
+
+@fig-ev-faceted shows the trend of electric car sales from 2013 to 2023 across six countries. Norway had the highest share, reaching over 80% by 2023, followed by Finland and Austria, which also showed steady growth to about 30% and 20%. In Asia, China started with a low share but grew quickly after 2016, reaching 35% in 2023. However, Japan and India remained low throughout the period, both staying under 2%. This trend shows that European countries had stronger policies and support for electric cars, while some Asian countries moved more slowly.
+
+```{r}
+#| label: fig-ev-faceted
+#| fig-cap: "EV sales share trends in selected Asian and European countries from 2013 to 2023."
 #| echo: false
-2 * 2
+#| warning: false
+
+ggplot(cleaned_df, aes(x = Year, y = Electric_Car_Share, color = Country)) +
+  geom_line(size = 1.2) +
+  scale_x_continuous(breaks = 2013:2023) +
+  facet_wrap(~Region) +
+  labs(title = "Electric Vehicle Sales Share (2013–2023)",
+       x = "Year",
+       y = "EV Share (%)") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+```{r}
+# Calculate the average EV share for each country from 2013 to 2023
+avg_ev_df <- cleaned_df %>%
+  group_by(Country) %>%
+  summarise(Average_EV_Share = mean(Electric_Car_Share, na.rm = TRUE))
+
+```
+
+@fig-ev-average-bar shows the average share of electric vehicle (EV) sales in each country from 2013 to 2023. Norway had the highest average, exceeding 50%, due to strong government incentives and early EV adoption. Finland and Austria also showed solid performance, averaging around 20–30%. In contrast, China had a lower average but showed rapid growth in recent years. Japan and India recorded the lowest averages, both below 2%, indicating slower adoption. Overall, European countries performed better in EV adoption compared to most Asian countries, with China as a notable exception.
+
+```{r}
+#| label: fig-ev-average-bar
+#| fig-cap: "Average EV sales share in each country from 2013 to 2023."
+#| echo: false
+#| fig-align: center
+
+ggplot(avg_ev_df, aes(x = reorder(Country, -Average_EV_Share), 
+                      y = Average_EV_Share, fill = Country)) +
+  geom_col(width = 0.6) +
+  labs(title = "Average Electric Vehicle Share by Country",
+       x = "Country",
+       y = "Average EV Share (%)") +
+  theme_minimal()
+```
