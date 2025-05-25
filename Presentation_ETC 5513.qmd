@@ -1,0 +1,33 @@
+---
+title: "Differences of electricity car usage between Asia and Europe"
+author: <br> Akbar Rakha Syahpradana 34096647 <br> Maisha Tahsin 35696699 <br> XINLEI LUO 34654348 <br> Yao Lu 33051887
+format: revealjs
+theme: simple
+toc: false
+slide-number: true
+transition: fade
+---
+
+# Introduction
+
+:::::: columns
+:::: column
+::: {style="font-size: 0.5em; line-height: 1.5;"}
+**Electric vehicles (EVs) are becoming more popular**
+
+But adoption is different between Asia and Europe
+
+Countries we focus on:
+
+-   Asia: China, India, Japan
+-   Europe: Norway, Finland, Austria
+
+**Problem Statement:**\
+Identify key differences and root causes in EV adoption between Asia vs Europe.
+:::
+::::
+
+::: column
+![](images/istockphoto-1348631007-612x612-01.jpg){style="float: right;"}
+:::
+::::::
