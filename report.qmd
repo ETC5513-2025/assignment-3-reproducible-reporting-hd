@@ -1,13 +1,14 @@
-# **Differences of electricity car usage between Asia and Europe**
-
 ---
+title: "Differences of electricity car usage between Asia and Europe"
+author: "YL"
 format:
-  html:
+  pdf:
     toc: True
     toc-title: "Table of Contents"
     toc-depth: 3
     toc-location: left
-editor: visual
+bibliography: references.bib
+csl: apa.csl
 ---
 
 ETC5513 Assignment 3
@@ -19,11 +20,103 @@ Group Members:
 * XINLEI LUO 34654348
 * Yao Lu 33051887
 
+```{r}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  echo = FALSE
+)
+```
 
+```{r}
+# Load library here
+library(dplyr)
+library(readr)
+library(tidyr)
+library(knitr)
+library(kableExtra)
+```
 
-## Executive Summary
+# Executive Summary
 This report analyzes the differences in electric vehicle (EV) adoption between selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries from 2013 to 2023. Using data from Our World in Data and the IMPACT Cycle framework, we found that European countries experienced a sharp rise in EV market share, driven by strong policy support such as high taxes on petrol cars and generous EV incentives. In contrast, Asian countries showed slower growth, largely due to weaker government support—except for China, which demonstrated rapid adoption. These findings highlight the critical role of national policy in shaping the trajectory of EV usage.
 
-## Introduction
+# Introduction
 
 The global transition toward electric vehicles (EVs) has gained momentum over the past decade, yet significant differences in adoption rates exist between regions. This study investigates how EV sales shares have evolved in selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries between 2013 and 2023. By analyzing public data from Our World in Data and applying the IMPACT Cycle methodology, we aim to uncover the underlying factors behind these regional disparities. Initial observations suggest that European nations have experienced a rapid increase in EV adoption, whereas most Asian countries have progressed more gradually. These trends raise important questions about the role of government policies, infrastructure, and public awareness in accelerating EV uptake. China, however, emerges as an exception within Asia, showing growth patterns similar to European counterparts. The analysis focuses on identifying such key differences and understanding their root causes. This comparison provides insight into how policy environments influence consumer behavior and technological adoption. Through this research, we aim to offer actionable recommendations for countries lagging in EV adoption. The goal is to inform strategies that support a more balanced and equitable global shift toward electric mobility.
+
+# Methodology
+
+A reproducible workflow was followed using RStudio, Git, and GitHub to manage version control and collaboration. This report applies the IMPACT Cycle framework to explore trends in electric vehicle (EV) adoption across selected Asian and European countries. As shown in \@fig-impact, the methodology follows a structured sequence, from identifying the research question, preparing data, performing analysis, communicating results, and tracking outcomes. The IMPACT Cycle was used because it provides a structured, repeatable approach for guiding data-driven projects from problem identification through to communication and measurable impact \@richardson2023impact.
+
+```{r}
+#| label: fig-impact
+#| fig-cap: "Impact Cycle"
+#| fig-align: center
+#| fig-pos: "H"
+
+knitr::include_graphics("Images/impact_fig.png")
+```
+
+In the Identify phase, the research question focused on how electric vehicle shares evolved between 2013 and 2023 across selected countries (China, India, and Japan in Asia, and Austria, Finland, and Norway in Europe), and what regional differences can be observed.
+
+```{r}
+# Data Preparation
+original_df <- read_csv("Data/electric-car-sales-share/electric-car-sales-share.csv")
+
+countries <- selected_countries <- c("China", "India", 
+                                     "Japan", "Austria", 
+                                     "Finland", "Norway")
+
+cleaned_df <- original_df %>%
+  rename(Country = Entity,
+         Electric_Car_Share = `Share of new cars that are electric`) %>%
+  filter(Year >= 2013, Year <= 2023, 
+         Country %in% countries) %>%
+  drop_na()
+
+```
+
+During the Master the Data phase, data was retrieved from [Our World in Data](https://ourworldindata.org/grapher/electric-car-sales-share), based on statistics from the International Energy Agency. Six countries were selected from global dataset, including China, India, and Japan in Asia, and Austria, Finland, and Norway in Europe. Furthermore, The 10-year timeframe (2013-2023) reflects a period of rapid growth and visibility in the electric mobility space.
+
+The final dataset has `r ncol(cleaned_df)` observations and `r nrow(cleaned_df)` variables. It contains two numeric variables (Year and Electric_car_share) and two character variable (Country and Code). The description of each variable is provided in @tbl-DataDict.
+
+```{r}
+# Preparation for data descriptions table
+data_description <- data.frame(
+  Variable = c("Country", "Code", "Year", "Electric_Car_Share"),
+  Description = c(
+    "Name of the country where the data was collected",
+    "ISO 3-letter country code",
+    "Year of observation (from 2013 to 2023)",
+    "Percentage of electric vehicles in new car sales"
+  ))
+```
+
+```{r}
+#| label: tbl-DataDict
+#| tbl-cap: "Data dictionary for electric car sales share dataset"
+
+data_description %>%
+  kable(escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped",
+                                      "hover",
+                                      "condensed",
+                                      "responsive",
+                                      "bordered"),
+                full_width = FALSE,
+                position = "center")
+
+```
+
+The analysis then produced visualisations that highlight EV adoption trends across countries, supporting the Address and Refine Results phase by making insights clear and actionable. In the Communicate phase, the findings were interpreted, while the Track Outcomes phase offers recommendations to support effective EV adoption.
+
+# Disucussion and Visualisations
+
+Yao's part
+
+# Conclusion and Recommendation
+
+Xinly's part
+
+# Reference List
