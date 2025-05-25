@@ -62,10 +62,12 @@ knitr::include_graphics("Images/impact_fig.png")
 In the Identify phase, the research question focused on how electric vehicle shares evolved between 2013 and 2023 across selected countries (China, India, and Japan in Asia, and Austria, Finland, and Norway in Europe), and what regional differences can be observed.
 
 
+
 ## Executive Summary
 This report analyzes the differences in electric vehicle (EV) adoption between selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries from 2013 to 2023. Using data from Our World in Data and the IMPACT Cycle framework, we found that European countries experienced a sharp rise in EV market share, driven by strong policy support such as high taxes on petrol cars and generous EV incentives. In contrast, Asian countries showed slower growth, largely due to weaker government support—except for China, which demonstrated rapid adoption. These findings highlight the critical role of national policy in shaping the trajectory of EV usage.
 ```{r}
 # Data Preparation
+
 original_df <- read_csv("Data/electric-car-sales-share/electric-car-sales-share.csv")
 
 countries <- selected_countries <- c("China", "India", 
