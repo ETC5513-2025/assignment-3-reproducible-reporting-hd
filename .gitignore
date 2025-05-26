@@ -1,5 +1,15 @@
+# RStudio files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+
+# macOS system file
 .DS_Store
+
+# renv local library
+renv/library/
+
+# Quarto/Knitr output
+*.html
+*_files/
