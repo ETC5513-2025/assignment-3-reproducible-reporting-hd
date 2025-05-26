@@ -1,5 +1,3 @@
-# **Differences of electricity car usage between Asia and Europe**
-
 ---
 title: "Differences of electricity car usage between Asia and Europe"
 author:
@@ -8,26 +6,18 @@ author:
   - Yao Lu
   - XINLEI LUO
 format:
-  pdf:
-    toc: True
+  report-pdf:
+    toc: true
     toc-title: "Table of Contents"
     toc-depth: 3
     toc-location: left
+    number-sections: true
+    title-block: none
+bibliography: references.bib
+csl: apa.csl
 ---
 
-
-
-
-ETC5513 Assignment 3
-
-Group Members:
-
-* Akbar Rakha Syahpradana 34096647
-* Maisha Tahsin 35696699
-* XINLEI LUO 34654348
-* Yao Lu 33051887
-
-```{r}
+```{r, include=FALSE}
 knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
@@ -46,7 +36,12 @@ library(ggplot2)
 library(kableExtra)
 ```
 
+```{=latex}
+\newpage
+```
+
 # Executive Summary
+
 This report analyzes the differences in electric vehicle (EV) adoption between selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries from 2013 to 2023. Using data from Our World in Data and the IMPACT Cycle framework, we found that European countries experienced a sharp rise in EV market share, driven by strong policy support such as high taxes on petrol cars and generous EV incentives. In contrast, Asian countries showed slower growth, largely due to weaker government support—except for China, which demonstrated rapid adoption. These findings highlight the critical role of national policy in shaping the trajectory of EV usage.
 
 # Introduction
@@ -55,7 +50,7 @@ The global transition toward electric vehicles (EVs) has gained momentum over th
 
 # Methodology
 
-A reproducible workflow was followed using RStudio, Git, and GitHub to manage version control and collaboration. This report applies the IMPACT Cycle framework to explore trends in electric vehicle (EV) adoption across selected Asian and European countries. As shown in \@fig-impact, the methodology follows a structured sequence, from identifying the research question, preparing data, performing analysis, communicating results, and tracking outcomes. The IMPACT Cycle was used because it provides a structured, repeatable approach for guiding data-driven projects from problem identification through to communication and measurable impact \@richardson2023impact.
+A reproducible workflow was followed using RStudio, Git, and GitHub to manage version control and collaboration. This report applies the IMPACT Cycle framework to explore trends in electric vehicle (EV) adoption across selected Asian and European countries. As shown in @fig-impact, the methodology follows a structured sequence, from identifying the research question, preparing data, performing analysis, communicating results, and tracking outcomes. The IMPACT Cycle was used because it provides a structured, repeatable approach for guiding data-driven projects from problem identification through to communication and measurable impact [@richardson2023impact].
 
 ```{r}
 #| label: fig-impact
@@ -68,10 +63,6 @@ knitr::include_graphics("Images/impact_fig.png")
 
 In the Identify phase, the research question focused on how electric vehicle shares evolved between 2013 and 2023 across selected countries (China, India, and Japan in Asia, and Austria, Finland, and Norway in Europe), and what regional differences can be observed.
 
-
-
-## Executive Summary
-This report analyzes the differences in electric vehicle (EV) adoption between selected Asian (China, India, Japan) and European (Norway, Finland, Austria) countries from 2013 to 2023. Using data from Our World in Data and the IMPACT Cycle framework, we found that European countries experienced a sharp rise in EV market share, driven by strong policy support such as high taxes on petrol cars and generous EV incentives. In contrast, Asian countries showed slower growth, largely due to weaker government support—except for China, which demonstrated rapid adoption. These findings highlight the critical role of national policy in shaping the trajectory of EV usage.
 ```{r}
 # Data Preparation
 
@@ -106,7 +97,6 @@ data_description <- data.frame(
   ))
 ```
 
-## Introduction
 ```{r}
 #| label: tbl-DataDict
 #| tbl-cap: "Data dictionary for electric car sales share dataset"
@@ -185,15 +175,18 @@ ggplot(avg_ev_df, aes(x = reorder(Country, -Average_EV_Share),
 ```
 
 ## Discussion
-The analysis reveals significant regional disparities in electric vehicle (EV) adoption between selected Asian and European countries from 2013 to 2023. European nations such as Norway and Finland achieved high EV market shares, largely due to robust government policies—including early purchase subsidies, high fuel taxes, and substantial investment in EV infrastructure. In contrast, most Asian countries, with the notable exception of China, experienced much slower adoption, which can be attributed to weaker institutional support and limited public infrastructure. China stands out within the Asian group, having demonstrated rapid EV growth patterns similar to its European counterparts. This suggests that strong and sustained government intervention—such as preferential tax exemptions and strategic planning—can effectively overcome structural constraints (State Council of the People’s Republic of China, 2023).
+The analysis reveals significant regional disparities in electric vehicle (EV) adoption between selected Asian and European countries from 2013 to 2023. European nations such as Norway and Finland achieved high EV market shares, largely due to robust government policies—including early purchase subsidies, high fuel taxes, and substantial investment in EV infrastructure. In contrast, most Asian countries, with the notable exception of China, experienced much slower adoption, which can be attributed to weaker institutional support and limited public infrastructure. China stands out within the Asian group, having demonstrated rapid EV growth patterns similar to its European counterparts. This suggests that strong and sustained government intervention—such as preferential tax exemptions and strategic planning—can effectively overcome structural constraints [@statecouncil2023].
+
+# Conlusion and Recommendations
+
+## Recommendations
+To encourage broader adoption, countries with low EV uptake—such as India and Japan—should consider adopting proven policy mechanisms implemented in Europe and China. These include offering generous purchase subsidies, implementing tax penalties on internal combustion engine vehicles, expanding charging infrastructure, and increasing public awareness through coordinated campaigns [@greemotion2015]. Setting clear national targets for EV adoption can also help guide private sector investments and align consumer expectations. A comprehensive, multi-pronged approach—consistent with the “Track Outcomes” and “Communicate Insights” phases of the IMPACT Cycle—will be essential in fostering a more equitable and sustainable global shift toward electric transportation.
 
 ## Conclusion
 These findings reinforce the critical role of national policy frameworks, financial incentives, and public infrastructure in shaping EV adoption trajectories. Although cultural and economic contexts differ across regions, the data-driven patterns observed through the IMPACT Cycle framework highlight that consistent, policy-led strategies have produced measurable growth in EV market share. The contrasting trajectories between countries underscore how deliberate policy choices can accelerate or hinder the transition to electric mobility.
 
-## Recommendations
-To encourage broader adoption, countries with low EV uptake—such as India and Japan—should consider adopting proven policy mechanisms implemented in Europe and China. These include offering generous purchase subsidies, implementing tax penalties on internal combustion engine vehicles, expanding charging infrastructure, and increasing public awareness through coordinated campaigns (Green eMotion, 2015). Setting clear national targets for EV adoption can also help guide private sector investments and align consumer expectations. A comprehensive, multi-pronged approach—consistent with the “Track Outcomes” and “Communicate Insights” phases of the IMPACT Cycle—will be essential in fostering a more equitable and sustainable global shift toward electric transportation.
+```{=latex}
+\newpage
+```
 
-## Reference section
-1. State Council of the People’s Republic of China. (2023, June 21). *China extends preferential purchase tax policy for NEVs*. State Council. <https://english.www.gov.cn/news/202306/21/content_WS64929394c6d0868f4e8dd11c.html>
-
-2. Green eMotion. (2015). *Green eMotion: Results and findings*. European Commission. <https://www.greenemotion-project.eu/upload/pdf/about_us/Green-eMotion_results_and_findings.pdf>
+# Reference List

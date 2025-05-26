@@ -3,6 +3,10 @@
 .Rhistory
 .RData
 .Ruserdata
+<<<<<<< HEAD
+.DS_Store
+monash2.png
+=======
 
 # macOS system file
 .DS_Store
@@ -13,3 +17,4 @@ renv/library/
 # Quarto/Knitr output
 *.html
 *_files/
+>>>>>>> origin/main

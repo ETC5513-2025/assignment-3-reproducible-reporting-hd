@@ -1,0 +1,39 @@
+\makeatletter
+\def\maketitle{%
+\newpage
+\begin{titlepage}
+\begin{singlespacing}
+\thispagestyle{empty}
+\vspace*{-1.4cm}
+\hspace*{-1.4cm}
+\hbox to 16cm{
+  
+  \hbox to 6.5cm{\vbox to 14cm{\vbox to 25cm{
+    \includegraphics[width=6cm]{monash2.png}  
+    \vfill
+  
+  }\vss}\hss}
+
+  \hspace*{0.2cm}
+  \hbox to 1cm{\vbox to 14cm{\rule{1pt}{26.8cm}\vss}\hss\hfill}
+
+  \hbox to 10cm{\vbox to 14cm{\vbox to 25cm{
+      \vspace*{3cm}\sf\raggedright
+      \parbox{10cm}{\sf\raggedright\baselineskip=1.2cm
+         \fontsize{24.88}{30}\color[rgb]{0.70,0.00,0.00}\sf\textbf{\@title}}
+      \par
+      \vfill
+      \large
+      \vbox{\parskip=0.8cm
+        \textbf{\textsf{Group HD (Tutorial 01)}}\\[0.5cm]
+        Akbar Rakha Syahpradana (34096647)\\
+        Maisha Tahsin (35696699)\\
+        XINLEI LUO (34654348)\\
+        Yao Lu (33051887)
+      }\par
+   }\vss}
+  }}
+\end{singlespacing}
+\end{titlepage}
+}
+\makeatother
