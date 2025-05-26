@@ -1,3 +1,5 @@
+# **Differences of electricity car usage between Asia and Europe**
+
 ---
 title: "Differences of electricity car usage between Asia and Europe"
 author: "Yao Lu"
@@ -7,9 +9,9 @@ format:
     toc-title: "Table of Contents"
     toc-depth: 3
     toc-location: left
-bibliography: references.bib
-csl: apa.csl
 ---
+
+
 
 
 ETC5513 Assignment 3
@@ -181,6 +183,7 @@ ggplot(avg_ev_df, aes(x = reorder(Country, -Average_EV_Share),
 # Conclusion and Recommendation
 
 Xinly's part
+
 
 # Reference List
 
