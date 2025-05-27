@@ -1,5 +1,5 @@
 ---
-title: "Differences of electricity car usage between Asia and Europe"
+title: "Differences of Electricity Car Usage Between Asia and Europe (2013-2023)"
 author:
   - Maisha Tahsin
   - Akbar Rakha Syahpradana
@@ -83,7 +83,7 @@ cleaned_df <- original_df %>%
 
 During the Master the Data phase, data was retrieved from [Our World in Data](https://ourworldindata.org/grapher/electric-car-sales-share), based on statistics from the International Energy Agency. Six countries were selected from global dataset, including China, India, and Japan in Asia, and Austria, Finland, and Norway in Europe. Furthermore, The 10-year timeframe (2013-2023) reflects a period of rapid growth and visibility in the electric mobility space.
 
-The final dataset has `r ncol(cleaned_df)` observations and `r nrow(cleaned_df)` variables. It contains two numeric variables (Year and Electric_car_share) and two character variable (Country and Code). The description of each variable is provided in @tbl-DataDict.
+The final dataset has `r ncol(cleaned_df)` variables and `r nrow(cleaned_df)` observations. It contains two numeric variables (Year and Electric_car_share) and two character variable (Country and Code). The description of each variable is provided in @tbl-DataDict.
 
 ```{r}
 # Preparation for data descriptions table
