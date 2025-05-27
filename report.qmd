@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 title: "Differences of Electricity Car Usage between Asia and Europe (2013-2023)"
+=======
+title: "Differences of Electricity Car Usage Between Asia and Europe (2013-2023)"
+>>>>>>> origin/main
 author:
   - Akbar Rakha Syahpradana (34096647)
   - Maisha Tahsin (35696699)

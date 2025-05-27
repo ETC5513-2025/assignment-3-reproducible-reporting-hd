@@ -1,0 +1,256 @@
+---
+title: "DIFFERENCES OF ELECTRICITY CAR USAGE BETWEEN ASIA AND EUROPE (2013-2023)"
+author:
+  - Akbar Rakha Syahpradana (34096647)
+  - Maisha Tahsin (35696699)
+  - Xinlei Luo (34654348)
+  - Yao Lu (33051887)
+format:
+  revealjs:
+    theme: solarized
+    transition: slide
+    fontsize: 1.2em
+    slide-number: true
+    progress: true
+    footer: "ETC5513 – Group HD (Tutorial 01)"
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  echo = FALSE
+)
+```
+
+```{r}
+# Load library here
+library(dplyr)
+library(readr)
+library(tidyr)
+library(knitr)
+library(ggplot2)
+library(kableExtra)
+```
+
+## Problem Introduction
+
+- Global EV adoption has increased, but uptake varies significantly between regions.
+- This study compares EV sales shares from **2013–2023** in:
+  - **Asia**: China, India, Japan  
+  - **Europe**: Norway, Finland, Austria
+  
+- The research question:  
+  *How have electric vehicle shares evolved between 2013 and 2023 across selected Asian and European countries, and what regional differences can be observed?*
+- The goal is to provide insights and recommendations to support more balanced EV growth.
+
+
+## Dataset Description
+```{r}
+# Data prep
+original_df <- read_csv("Data/electric-car-sales-share/electric-car-sales-share.csv")
+
+countries <- selected_countries <- c("China", "India", 
+                                     "Japan", "Austria", 
+                                     "Finland", "Norway")
+
+cleaned_df <- original_df %>%
+  rename(Country = Entity,
+         Electric_Car_Share = `Share of new cars that are electric`) %>%
+  filter(Year >= 2013, Year <= 2023, 
+         Country %in% countries) %>%
+  drop_na()
+```
+
+- The dataset covers EV share in new car sales from **2005 to 2023** across **100+ countries**.
+- The dataset was retrieved from [Our World in Data](https://ourworldindata.org/grapher/electric-car-sales-share), based on data from the International Energy Agency (IEA).
+
+- This report focuses on **China, India, Japan, Austria, Finland, and Norway** between **2013–2023**  
+  to compare trends in **Asia vs. Europe**, based on market size and EV adoption progress.
+- The final dataset contains **`r nrow(cleaned_df)` rows** and **`r ncol(cleaned_df)` columns**
+- Includes:
+  - **2 character variables**: `Country`, `Code`
+  - **2 numeric variables**: `Year`, `Electric_Car_Share`
+
+```{r}
+
+# Preparation for data descriptions table
+data_description <- data.frame(
+  Variable = c("Country", "Code", "Year", "Electric_Car_Share"),
+  Description = c(
+    "Name of the country where the data was collected",
+    "ISO 3-letter country code",
+    "Year of observation (from 2013 to 2023)",
+    "Percentage of electric vehicles in new car sales"
+  ))
+```
+
+## Data Dictionary
+
+The description of each variable is shown in @tbl-DataDict.
+
+```{r}
+#| label: tbl-DataDict
+#| tbl-cap: "Data dictionary for electric car sales share dataset"
+
+data_description %>%
+  kable(escape = FALSE) %>%
+  kable_styling(bootstrap_options = c("striped",
+                                      "hover",
+                                      "condensed",
+                                      "responsive",
+                                      "bordered"),
+                full_width = FALSE,
+                position = "center")
+```
+ 
+## Methods
+
+We used the **IMPACT Cycle** to structure our analysis. This framework supports data-driven problem-solving from question formulation to action.
+
+- **I – Identify**:  
+  Formulated the research question – how has EV adoption evolved between 2013–2023 across selected Asian and European countries?
+
+- **M – Master the Data**:  
+  Cleaned and filtered EV share data.
+
+- **P – Perform Analysis**:  
+  Visualised trends in EV adoption and compared growth across regions using R.
+
+- **A – Address and Refine Results**:  
+  Interpreted results to highlight regional insights and possible influencing factors.
+
+- **C – Communicate**:  
+  Developed slides and written report to present findings clearly.
+
+- **T – Track Outcomes**:  
+  Proposed recommendations to encourage EV adoption, especially in lower-performing countries.
+
+------------------------------------------------------------------------
+
+## EV Trend by Region (2013–2023)
+
+- Norway leads with over 80% EV share in 2023.  
+
+- China surged post-2016.  
+
+- Japan and India stayed below 2%.
+
+```{r}
+# Separate countries into two regions
+cleaned_df <- cleaned_df %>%
+  mutate(Region = if_else(Country %in% c("Norway", "Finland", "Austria"), 
+                          "Europe", "Asia"))
+```
+
+```{r}
+#| label: fig-ev-faceted
+#| fig-cap: "EV sales share trends in selected Asian and European countries from 2013 to 2023."
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+ggplot(cleaned_df, aes(x = Year, y = Electric_Car_Share, color = Country)) +
+  geom_line(size = 1.2) +
+  scale_x_continuous(breaks = 2013:2023) +
+  facet_wrap(~Region) +
+  labs(title = "Electric Vehicle Sales Share (2013–2023)",
+       x = "Year",
+       y = "EV Share (%)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+
+
+------------------------------------------------------------------------
+
+
+
+## Average EV Share by Country (2013–2023)
+
+- Norway has the highest average (>50%)  
+- Finland and China follow, showing good progress  
+- Austria is mid-range  
+- Japan and India remain low (<2%)
+
+```{r}
+# Calculate the average EV share for each country from 2013 to 2023
+avg_ev_df <- cleaned_df %>%
+  group_by(Country) %>%
+  summarise(Average_EV_Share = mean(Electric_Car_Share, na.rm = TRUE))
+```
+
+```{r}
+#| label: fig-ev-average-bar
+#| fig-cap: "Average EV sales share in each country from 2013 to 2023."
+#| echo: false
+#| warning: false
+#| fig-align: center
+
+avg_ev_df <- cleaned_df %>%
+  group_by(Country) %>%
+  summarise(Average_EV_Share = mean(Electric_Car_Share, na.rm = TRUE))
+
+ggplot(avg_ev_df, aes(x = reorder(Country, -Average_EV_Share), 
+                      y = Average_EV_Share, fill = Country)) +
+  geom_col(width = 0.6) +
+  labs(title = "Average Electric Vehicle Share by Country",
+       x = "Country",
+       y = "Average EV Share (%)") +
+  theme_minimal()
+```
+
+
+------------------------------------------------------------------------
+
+## {.center .middle}
+
+<h1 style="font-size: 70px;">Conclusion & Recommendations</h1>
+
+---
+
+
+## Policy-Driven Differences in EV Adoption {.slide background-image="Images/2.png" background-size="contain" background-position="center" background-opacity="0.15"}
+
+- **Europe (e.g., Norway, Finland)**  
+  → Strong government incentives, charging infrastructure, etc 
+  → High EV market share (>80% in Norway by 2023)  
+
+- **China**  
+  → National policy support, tax exemption programs  
+  → Fast growth since 2016, reached 35% in 2023  
+
+- **India & Japan**  
+  → Weak EV policies, low consumer incentives  
+  → EV share stayed under 2% throughout the period  
+
+- <span style="color: red;"><strong>Insight</strong>:</span> Policy strength is a key driver of EV adoption.
+
+
+## Recommendations
+
+<div style="text-align: center; width: 100%; margin-bottom: 1em;">
+  <img src="Images/1.png" style="max-height: 280px; width: 90%;" />
+</div>
+
+<div style="display: flex; justify-content: space-around; margin-top: 1em;">
+
+<div style="width: 45%;">
+
+- Offer **purchase subsidies**  
+- Invest in **charging infrastructure**
+
+</div>
+
+<div style="width: 45%;">
+
+- Launch **public awareness campaigns**  
+- Set clear **EV adoption targets**  
+  *(Green eMotion, 2015)*
+
+</div>
+
+</div>
+
